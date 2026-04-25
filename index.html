@@ -1,0 +1,1075 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OVA Interactiva: Normas APA 7ma Edición</title>
+    <style>
+      /* ================= VARIABLES Y RESET ================= */
+      :root {
+        --primary: #0056b3;
+        --secondary: #f8f9fa;
+        --text-dark: #333333;
+        --text-light: #ffffff;
+        --accent: #ffc107;
+        --success: #28a745;
+        --error: #dc3545;
+        --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font-main);
+        color: var(--text-dark);
+        background-color: #e9ecef;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* ================= HEADER & MENU ================= */
+      header {
+        background-color: var(--primary);
+        color: var(--text-light);
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+      header h1 {
+        font-size: 1.2rem;
+      }
+      .menu-btn {
+        background: none;
+        border: 2px solid var(--text-light);
+        color: var(--text-light);
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+      .menu-btn:hover {
+        background-color: var(--text-light);
+        color: var(--primary);
+      }
+
+      #nav-menu {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: var(--text-light);
+        width: 280px;
+        box-shadow: -2px 5px 10px rgba(0, 0, 0, 0.2);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        z-index: 999;
+        height: calc(100vh - 60px);
+        overflow-y: auto;
+      }
+      #nav-menu.open {
+        transform: translateX(0);
+      }
+      #nav-menu ul {
+        list-style: none;
+      }
+      #nav-menu li a {
+        display: block;
+        padding: 1rem;
+        color: var(--text-dark);
+        text-decoration: none;
+        border-bottom: 1px solid #ddd;
+      }
+      #nav-menu li a:hover {
+        background-color: var(--secondary);
+        color: var(--primary);
+      }
+
+      /* ================= MAIN CONTAINER ================= */
+      main {
+        flex-grow: 1;
+        position: relative;
+        overflow-y: auto;
+        padding: 2rem;
+        display: flex;
+        justify-content: center;
+      }
+      .slide {
+        background: var(--text-light);
+        width: 100%;
+        max-width: 900px;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        display: none;
+        animation: fadeIn 0.5s ease;
+        height: fit-content;
+        margin-bottom: 2rem;
+      }
+      .slide.active {
+        display: block;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ================= CONTENIDO SLIDES ================= */
+      h2 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 0.5rem;
+      }
+      p {
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+      ul {
+        margin-left: 2rem;
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+      .example-box {
+        background-color: var(--secondary);
+        border-left: 4px solid var(--accent);
+        padding: 1rem;
+        margin: 1rem 0;
+        font-style: italic;
+      }
+      figure {
+        margin: 1rem 0;
+        text-align: center;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+      }
+      figcaption {
+        font-size: 0.8rem;
+        color: #666;
+        margin-top: 0.5rem;
+        text-align: left;
+      }
+      .video-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        margin: 1.5rem 0;
+        border-radius: 8px;
+      }
+      .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* ================= QUIZ & INTERACCIONES ================= */
+      .quiz-container,
+      .activity-container {
+        background: #f4f6f9;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-top: 1.5rem;
+        border: 1px solid #d1d5db;
+      }
+      .quiz-container h3,
+      .activity-container h3 {
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        color: var(--primary);
+      }
+      .option {
+        display: block;
+        width: 100%;
+        text-align: left;
+        background: var(--text-light);
+        border: 1px solid #ccc;
+        padding: 0.8rem;
+        margin-bottom: 0.5rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .option:hover {
+        background: #e2e6ea;
+      }
+      .feedback {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 5px;
+        display: none;
+        font-weight: bold;
+      }
+      .feedback.correct {
+        background-color: #d4edda;
+        color: var(--success);
+        border: 1px solid #c3e6cb;
+      }
+      .feedback.incorrect {
+        background-color: #f8d7da;
+        color: var(--error);
+        border: 1px solid #f5c6cb;
+      }
+
+      /* Drag and Drop */
+      .draggable-items {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+      }
+      .drag-item {
+        background: var(--primary);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: grab;
+        user-select: none;
+      }
+      .dropzone-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .dropzone {
+        background: #fff;
+        border: 2px dashed #ccc;
+        min-height: 50px;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .drop-inline {
+        display: inline-block;
+        min-width: 100px;
+        height: 30px;
+        border: 2px dashed #0056b3;
+        background: #fff;
+        vertical-align: middle;
+        padding: 0 5px;
+      }
+
+      /* Simulador */
+      .slider-container {
+        margin: 1.5rem 0;
+        text-align: center;
+      }
+      input[type='range'] {
+        width: 80%;
+        cursor: pointer;
+      }
+      .sim-result {
+        font-size: 1.2rem;
+        font-weight: bold;
+        background: #fff;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-top: 1rem;
+        min-height: 60px;
+      }
+
+      /* Dashboard */
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .dash-card {
+        background: var(--secondary);
+        padding: 1.5rem;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid #ccc;
+      }
+      .score-text {
+        font-size: 3rem;
+        color: var(--primary);
+        font-weight: bold;
+      }
+      .checklist {
+        text-align: left;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      .checklist li {
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+      }
+      .reset-btn {
+        background: var(--error);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 1rem;
+        width: 100%;
+      }
+      .reset-btn:hover {
+        background: #c82333;
+      }
+
+      /* ================= FOOTER / CONTROLES ================= */
+      footer {
+        background: var(--text-light);
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.05);
+      }
+      .nav-btn {
+        background-color: var(--primary);
+        color: var(--text-light);
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: 0.3s;
+      }
+      .nav-btn:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+      .nav-btn:hover:not(:disabled) {
+        background-color: #004085;
+      }
+      #slide-counter {
+        font-weight: bold;
+        color: var(--text-dark);
+      }
+
+      @media (max-width: 768px) {
+        header h1 {
+          font-size: 1rem;
+        }
+        main {
+          padding: 1rem;
+        }
+        .slide {
+          padding: 1.5rem;
+        }
+        #nav-menu {
+          width: 100%;
+        }
+        .dashboard-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>OVA: Normas APA 7</h1>
+      <div style="display: flex; gap: 15px; align-items: center">
+        <span id="header-score" style="font-weight: bold; color: var(--accent)">Puntos: 0</span>
+        <button class="menu-btn" aria-label="Abrir menú" onclick="toggleMenu()">☰ Menú</button>
+      </div>
+    </header>
+
+    <nav id="nav-menu" aria-hidden="true">
+      <ul id="menu-links"></ul>
+    </nav>
+
+    <main id="slider">
+      <article class="slide active" data-title="Portada">
+        <div style="text-align: center; margin-top: 2rem">
+          <h1 style="color: var(--primary); font-size: 2.5rem; margin-bottom: 1rem">Dominando las Normas APA 7ma Edición</h1>
+          <p style="font-size: 1.2rem; margin-bottom: 2rem">Guía interactiva para la excelencia académica</p>
+          <figure>
+            <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=800&q=80" alt="Estudiante en biblioteca" />
+            <figcaption>
+              Figura 1.
+              <em>Estudio académico</em>
+              . Recuperado de Unsplash, por A. Writer (2020).
+            </figcaption>
+          </figure>
+          <br />
+          <h3>Docente Creadora:</h3>
+          <p>Leislie Yuliet Saldaña Velez</p>
+          <br />
+          <img src="https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png" alt="Licencia CC BY-NC-SA 4.0" />
+        </div>
+      </article>
+
+      <article class="slide" data-title="Saberes Previos">
+        <h2>Diagnóstico: ¿Qué sabes de las Normas APA?</h2>
+        <p>Antes de comenzar, midamos tus conocimientos actuales. No te preocupes si te equivocas, ¡estamos aquí para aprender!</p>
+        <figure>
+          <img src="https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&w=800&q=80" alt="Cerebro de bombilla" />
+          <figcaption>
+            Figura 2.
+            <em>Ideas y conocimientos previos</em>
+            . Recuperado de Unsplash (2021).
+          </figcaption>
+        </figure>
+
+        <div class="quiz-container" id="quiz-pre1">
+          <h3>Pregunta 1: ¿Cuál es el principal objetivo de usar Normas APA?</h3>
+          <button class="option" onclick="checkAnswer('quiz-pre1', false, 'pre1')">A) Hacer que el documento se vea más bonito.</button>
+          <button class="option" onclick="checkAnswer('quiz-pre1', true, 'pre1')">B) Estandarizar la escritura académica y evitar el plagio.</button>
+          <button class="option" onclick="checkAnswer('quiz-pre1', false, 'pre1')">C) Obligar a los estudiantes a comprar libros.</button>
+          <div class="feedback"></div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Objetivos">
+        <h2>Objetivos de este OVA</h2>
+        <p>Al finalizar este módulo interactivo, serás capaz de:</p>
+        <ul>
+          <li>
+            <strong>Comprender</strong>
+            la importancia de la honestidad intelectual.
+          </li>
+          <li>
+            <strong>Aplicar</strong>
+            el formato general de trabajos escritos.
+          </li>
+          <li>
+            <strong>Construir</strong>
+            citas (directas e indirectas) correctamente.
+          </li>
+          <li>
+            <strong>Estructurar</strong>
+            la lista de referencias bibliográficas.
+          </li>
+        </ul>
+        <div class="activity-container">
+          <h3>Verificación rápida:</h3>
+          <p>Haz clic en el botón para revelar por qué esto te servirá en tu vida universitaria:</p>
+          <button
+            class="nav-btn"
+            onclick="
+              document.getElementById('obj-rev').style.display = 'block'
+              addScore('obj1', 10)
+            ">
+            Revelar Beneficio
+          </button>
+          <p id="obj-rev" style="display: none; margin-top: 10px; font-weight: bold; color: var(--success)">
+            ¡Evitarás sanciones por plagio y tus tesis/ensayos tendrán rigor profesional y científico!
+          </p>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Formato General">
+        <h2>1. El Formato General del Documento</h2>
+        <p>Configura tu procesador de texto antes de iniciar:</p>
+        <ul>
+          <li>
+            <strong>Márgenes:</strong>
+            2.54 cm (1 pulgada) en los 4 lados.
+          </li>
+          <li>
+            <strong>Fuente:</strong>
+            Times New Roman 12, Arial 11, Calibri 11, etc.
+          </li>
+          <li>
+            <strong>Interlineado:</strong>
+            Doble en todo el documento.
+          </li>
+          <li>
+            <strong>Sangría:</strong>
+            Primera línea de cada párrafo (1.27 cm).
+          </li>
+        </ul>
+        <figure>
+          <img src="ChatGPT Image 24 abr 2026, 11_15_08 p.m..png" alt="Regla y papel" />
+          <figcaption>
+            Figura 3.
+            <em>Configuración del procesador de texto</em>
+            Imagen generada con IA mediante ChatGPT (OpenAI, 2026).
+          </figcaption>
+        </figure>
+
+        <div class="quiz-container" id="quiz-format">
+          <h3>Prueba tu conocimiento:</h3>
+          <button class="option" onclick="checkAnswer('quiz-format', true, 'fmt1')">A) El interlineado es doble y se aplica sangría de 1.27cm a la primera línea.</button>
+          <button class="option" onclick="checkAnswer('quiz-format', false, 'fmt1')">B) Solo se permite usar la fuente Times New Roman 12.</button>
+          <div class="feedback"></div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Títulos y Jerarquías">
+        <h2>2. Organización: Niveles de Títulos</h2>
+        <p>Los títulos ayudan a estructurar. Hay 5 niveles, estos son los 3 principales:</p>
+        <ul>
+          <li>
+            <strong>Nivel 1:</strong>
+            Centrado, Negrita.
+          </li>
+          <li>
+            <strong>Nivel 2:</strong>
+            Alineado a la izquierda, Negrita.
+          </li>
+          <li>
+            <strong>Nivel 3:</strong>
+            Alineado a la izquierda, Negrita, Cursiva.
+          </li>
+        </ul>
+        <figure>
+          <img src="ChatGPT Image 24 abr 2026, 11_31_42 p.m..png" alt="Regla y papel" />
+          <figcaption>
+            Figura 3.
+            <em>Configuración del procesador de texto</em>
+            Imagen generada con IA mediante ChatGPT (OpenAI, 2026).
+          </figcaption>
+        </figure>
+
+        <div class="activity-container">
+          <h3>Juego: Ordena la jerarquía (Arrastra y suelta)</h3>
+          <p>Arrastra los niveles a su caja correspondiente de Mayor a Menor jerarquía.</p>
+          <div class="draggable-items">
+            <div class="drag-item" draggable="true" id="drag-n2" ondragstart="drag(event)">Nivel 2: Izquierda, Negrita</div>
+            <div class="drag-item" draggable="true" id="drag-n1" ondragstart="drag(event)">Nivel 1: Centrado, Negrita</div>
+            <div class="drag-item" draggable="true" id="drag-n3" ondragstart="drag(event)">Nivel 3: Izquierda, Cursiva</div>
+          </div>
+          <div class="dropzone-container">
+            <div class="dropzone" id="drop-1" ondrop="drop(event, 'drag-n1')" ondragover="allowDrop(event)"><strong>Principal:</strong></div>
+            <div class="dropzone" id="drop-2" ondrop="drop(event, 'drag-n2')" ondragover="allowDrop(event)"><strong>Subtema:</strong></div>
+            <div class="dropzone" id="drop-3" ondrop="drop(event, 'drag-n3')" ondragover="allowDrop(event)"><strong>Detalle:</strong></div>
+          </div>
+          <div id="feedback-titles" class="feedback"></div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Citas Directas">
+        <h2>3. Citas Directas (Textuales)</h2>
+        <p>Se usan al copiar *exactamente* las palabras del autor.</p>
+        <p>
+          <strong>Menos de 40 palabras:</strong>
+          Integradas en el párrafo, entre comillas "". Ej: (Pérez, 2022, p. 5).
+        </p>
+        <p>
+          <strong>40 palabras o más:</strong>
+          En un bloque aparte, SIN comillas, con sangría en todo el bloque.
+        </p>
+        <figure>
+          <img src="ChatGPT Image 24 abr 2026, 11_34_15 p.m..png" alt="Regla y papel" />
+          <figcaption>
+            Figura 3.
+            <em>Configuración del procesador de texto</em>
+            Imagen generada con IA mediante ChatGPT (OpenAI, 2026).
+          </figcaption>
+        </figure>
+
+        <div class="quiz-container" id="quiz-citas">
+          <h3>Verificación:</h3>
+          <p>Citas un texto de 45 palabras. ¿Lleva comillas?</p>
+          <button class="option" onclick="checkAnswer('quiz-citas', false, 'cit1')">A) Sí, siempre.</button>
+          <button class="option" onclick="checkAnswer('quiz-citas', true, 'cit1')">B) No, va en bloque aparte con sangría.</button>
+          <div class="feedback"></div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Parafraseo">
+        <h2>4. Citas Indirectas (Parafraseo)</h2>
+        <p>
+          Contar con tus propias palabras la idea de otro.
+          <strong>NO lleva comillas</strong>
+          , pero SÍ requiere citar (Autor, Año).
+        </p>
+        <ul>
+          <li>
+            <strong>Narrativa:</strong>
+            Según Saldaña (2023), el sol...
+          </li>
+          <li>
+            <strong>Parentética:</strong>
+            El sol calienta (Saldaña, 2023).
+          </li>
+        </ul>
+      <figure>
+          <img src="ChatGPT Image 24 abr 2026, 11_47_18 p.m..png" alt="Regla y papel" />
+          <figcaption>
+            Figura 3.
+            <em>Configuración del procesador de texto</em>
+            Imagen generada con IA mediante ChatGPT (OpenAI, 2026).
+          </figcaption>
+        </figure>
+        <div class="quiz-container" id="quiz-para">
+          <h3>Verificación:</h3>
+          <button class="option" onclick="checkAnswer('quiz-para', true, 'par1')">A) El parafraseo exige citar al autor original para evitar plagio.</button>
+          <button class="option" onclick="checkAnswer('quiz-para', false, 'par1')">B) Como son mis palabras, no debo poner el autor.</button>
+          <div class="feedback"></div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Número de Autores">
+        <h2>5. Cómo citar según el número de autores</h2>
+        <p>La forma de citar cambia si el libro tiene 1, 2, o 3+ autores.</p>
+         <figure>
+          <img src="ChatGPT Image 24 abr 2026, 11_51_00 p.m..png" alt="Regla y papel" />
+          <figcaption>
+            Figura 3.
+            <em>Configuración del procesador de texto</em>
+            Imagen generada con IA mediante ChatGPT (OpenAI, 2026).
+          </figcaption>
+        </figure>
+
+        <div class="activity-container">
+          <h3>Simulador Visual</h3>
+          <p>Mueve la barra para ver cómo cambia la cita parentética según la cantidad de autores del año 2023:</p>
+          <div class="slider-container">
+            <input type="range" id="authorSlider" min="1" max="3" value="1" oninput="updateSimulator(this.value)" />
+            <div class="sim-result" id="simResult">(Pérez, 2023)</div>
+          </div>
+        </div>
+
+        <div class="activity-container">
+          <h3>Práctica: Construye la cita</h3>
+          <p>
+            Arma una cita para un libro escrito por
+            <strong>Gómez y López</strong>
+            en el año
+            <strong>2021</strong>
+            .
+          </p>
+          <div class="draggable-items">
+            <div class="drag-item" draggable="true" id="w1" ondragstart="drag(event)">(</div>
+            <div class="drag-item" draggable="true" id="w2" ondragstart="drag(event)">Gómez y López</div>
+            <div class="drag-item" draggable="true" id="w3" ondragstart="drag(event)">, 2021</div>
+            <div class="drag-item" draggable="true" id="w4" ondragstart="drag(event)">)</div>
+          </div>
+          <div class="dropzone" id="drop-cita" ondrop="dropMulti(event)" ondragover="allowDrop(event)">
+            <em>Arrastra aquí en orden:</em>
+          </div>
+          <button class="nav-btn" style="margin-top: 10px" onclick="checkCitaBuilder()">Revisar Cita</button>
+          <div id="feedback-cita" class="feedback"></div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Referencias Básicas">
+        <h2>6. Lista de Referencias: Libros</h2>
+        <p>
+          Van al final, ordenadas alfabéticamente y con
+          <strong>Sangría Francesa</strong>
+          .
+        </p>
+        <p>
+          <strong>Estructura:</strong>
+          Apellido, Inicial. (Año).
+          <em>Título en cursiva</em>
+          . Editorial.
+        </p>
+         <figure>
+          <img src="ChatGPT Image 24 abr 2026, 11_43_45 p.m..png" alt="Configuración de documento" />
+          <figcaption>
+            Figura 3.
+            <em>Configuración del procesador de texto</em>
+            . Imagen generada con IA mediante ChatGPT (OpenAI, 2026).
+          </figcaption>
+        </figure>
+        </figure>
+        <div class="quiz-container" id="quiz-ref">
+          <h3>Verificación:</h3>
+          <button class="option" onclick="checkAnswer('quiz-ref', true, 'ref1')">
+            A) García, G. (1967).
+            <em>Cien años de soledad</em>
+            . Sudamericana.
+          </button>
+          <button class="option" onclick="checkAnswer('quiz-ref', false, 'ref1')">B) G. García. 1967. Cien años de soledad. Sudamericana.</button>
+          <div class="feedback"></div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Referencias Digitales">
+        <h2>7. Referenciando Páginas Web</h2>
+        <p>
+          <strong>Estructura:</strong>
+          Apellido, A. (Fecha). Título de la página. Sitio Web. URL
+        </p>
+        <figure>
+          <img src="ChatGPT Image 24 abr 2026, 11_37_33 p.m..png" alt="Configuración de documento" />
+          <figcaption>
+            Figura 3.
+            <em>Configuración del procesador de texto</em>
+            . Imagen generada con IA mediante ChatGPT (OpenAI, 2026).
+          </figcaption>
+        </figure>
+        <div class="quiz-container" id="quiz-web">
+          <h3>Verificación:</h3>
+          <button class="option" onclick="checkAnswer('quiz-web', false, 'web1')">A) Pongo solo el enlace al final del ensayo.</button>
+          <button class="option" onclick="checkAnswer('quiz-web', true, 'web1')">B) Debo poner Autor, Fecha, Título, Nombre del sitio y URL.</button>
+          <div class="feedback"></div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Tablas y Figuras">
+        <h2>8. Tablas y Figuras</h2>
+        <p>
+          Numeradas arriba (Ej: Tabla 1), Título en cursiva. Debajo, una "
+          <em>Nota.</em>
+          " explicativa.
+        </p>
+        <div class="video-container">
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/WHTcvd6-faA?si=5Rj-W-FooePi2kVY"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+        </div>
+        <p class="referencia">
+          <strong>Figura 4.</strong>
+          <em>Uso de tablas y figuras en normas APA</em>.
+          Nota. Video de YouTube.
+          <a href="https://www.youtube.com/watch?v=WHTcvd6-faA" target="_blank">
+            https://www.youtube.com/watch?v=WHTcvd6-faA
+          </a>
+        </p>
+        <div class="quiz-container" id="quiz-tablas">
+          <h3>Verificación:</h3>
+          <button class="option" onclick="checkAnswer('quiz-tablas', true, 'tab1')">A) El título de la figura va en cursiva debajo del número.</button>
+          <button class="option" onclick="checkAnswer('quiz-tablas', false, 'tab1')">B) Las figuras no necesitan llevar número ni nota.</button>
+          <div class="feedback"></div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Evaluación Final">
+        <h2>Evaluación Final Avanzada</h2>
+
+        <div class="quiz-container" id="quiz-fin1">
+          <h3>1. Reto Analítico:</h3>
+          <p>Parafraseas una noticia de 'El Tiempo' (2024). ¿Qué haces?</p>
+          <button class="option" onclick="checkAnswer('quiz-fin1', false, 'fin1')">A) Pongo la URL en el párrafo.</button>
+          <button class="option" onclick="checkAnswer('quiz-fin1', true, 'fin1')">B) Cito en el texto (El Tiempo, 2024) y pongo la referencia completa al final.</button>
+          <div class="feedback"></div>
+        </div>
+
+        <div class="activity-container">
+          <h3>2. Completa la oración (Arrastra la palabra)</h3>
+          <p>
+            En el formato APA 7, la
+            <span class="drop-inline" id="drop-word1" ondrop="dropSingle(event, 'word-sangria')" ondragover="allowDrop(event)"></span>
+            de la primera línea debe ser de 1.27 cm y el
+            <span class="drop-inline" id="drop-word2" ondrop="dropSingle(event, 'word-inter')" ondragover="allowDrop(event)"></span>
+            debe ser doble.
+          </p>
+          <div class="draggable-items" style="margin-top: 10px">
+            <div class="drag-item" draggable="true" id="word-inter" ondragstart="drag(event)">interlineado</div>
+            <div class="drag-item" draggable="true" id="word-margen" ondragstart="drag(event)">margen</div>
+            <div class="drag-item" draggable="true" id="word-sangria" ondragstart="drag(event)">sangría</div>
+          </div>
+          <button class="nav-btn" style="margin-top: 10px" onclick="checkFillBlanks()">Verificar Texto</button>
+          <div id="feedback-blanks" class="feedback"></div>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Conclusión">
+        <div style="text-align: center; margin-top: 2rem">
+          <h2 style="font-size: 2rem">¡Has completado el recorrido!</h2>
+          <figure>
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" alt="Estudiantes graduados" />
+            <figcaption>
+              Figura 8.
+              <em>Éxito académico</em>
+              . Recuperado de Unsplash (2018).
+            </figcaption>
+          </figure>
+          <p style="font-size: 1.2rem; margin-top: 2rem">
+            Las normas APA no buscan complicarte la vida. Son el "idioma universal" de la ciencia y la academia. Al dominarlas, demuestras profesionalismo, respeto por las ideas ajenas y das
+            credibilidad a tus propias investigaciones.
+          </p>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Referencias del OVA">
+        <h2>Referencias Bibliográficas</h2>
+        <div style="padding-left: 2rem; text-indent: -2rem; line-height: 2">
+          <p>
+            American Psychological Association. (2020).
+            <em>Publication manual of the American Psychological Association</em>
+            (7th ed.). https://doi.org/10.1037/0000165-000
+          </p>
+          <p>
+            Saldaña Velez, L. Y. (2024).
+            <em>Diseño de Objetos Virtuales de Aprendizaje Interactivos</em>
+            . Universidad Nacional.
+          </p>
+          <p>
+            Unsplash. (2024).
+            <em>Banco de imágenes libres de derechos</em>
+            . Recuperado de https://unsplash.com
+          </p>
+          <p>
+            YouTube Educativo. (2021).
+            <em>Tablas y Figuras en APA 7</em>
+            [Archivo de Video]. YouTube.
+          </p>
+        </div>
+      </article>
+
+      <article class="slide" data-title="Dashboard Final">
+        <h2>Resumen de tu Desempeño</h2>
+        <div class="dashboard-grid">
+          <div class="dash-card">
+            <h3>Puntaje Total</h3>
+            <div class="score-text" id="final-score">0</div>
+            <p>puntos obtenidos en las actividades.</p>
+          </div>
+          <div class="dash-card">
+            <h3>Progreso del OVA</h3>
+            <ul class="checklist" id="slide-checklist"></ul>
+          </div>
+        </div>
+        <button class="reset-btn" onclick="resetOVA()">🔄 Reiniciar OVA y Puntajes</button>
+      </article>
+    </main>
+
+    <footer>
+      <button id="btn-prev" class="nav-btn" onclick="changeSlide(-1)">◀ Anterior</button>
+      <span id="slide-counter">1 / 15</span>
+      <button id="btn-next" class="nav-btn" onclick="changeSlide(1)">Siguiente ▶</button>
+    </footer>
+
+    <script>
+      // ================= ESTADO GLOBAL =================
+      let currentSlide = 0
+      let score = 0
+      let completedTasks = new Set()
+      let visitedSlides = []
+      const totalSlides = document.querySelectorAll('.slide').length
+
+      // Elementos DOM
+      const slides = document.querySelectorAll('.slide')
+      const counter = document.getElementById('slide-counter')
+      const btnPrev = document.getElementById('btn-prev')
+      const btnNext = document.getElementById('btn-next')
+      const menu = document.getElementById('nav-menu')
+      const menuLinks = document.getElementById('menu-links')
+      const headerScore = document.getElementById('header-score')
+      const checklistContainer = document.getElementById('slide-checklist')
+      const finalScore = document.getElementById('final-score')
+
+      // ================= INICIALIZACIÓN =================
+      function initOVA() {
+        menuLinks.innerHTML = ''
+        checklistContainer.innerHTML = ''
+        visitedSlides = new Array(totalSlides).fill(false)
+
+        slides.forEach((slide, index) => {
+          const title = slide.getAttribute('data-title')
+
+          // Menú
+          const li = document.createElement('li')
+          const a = document.createElement('a')
+          a.href = '#'
+          a.textContent = `${index + 1}. ${title}`
+          a.onclick = (e) => {
+            e.preventDefault()
+            goToSlide(index)
+            toggleMenu()
+          }
+          li.appendChild(a)
+          menuLinks.appendChild(li)
+
+          // Checklist Dashboard
+          const checkLi = document.createElement('li')
+          checkLi.innerHTML = `<input type="radio" disabled id="check-${index}"> <label>${index + 1}. ${title}</label>`
+          checklistContainer.appendChild(checkLi)
+        })
+        updateUI()
+      }
+
+      // ================= NAVEGACIÓN =================
+      function updateUI() {
+        slides.forEach((s) => s.classList.remove('active'))
+        slides[currentSlide].classList.add('active')
+
+        counter.textContent = `${currentSlide + 1} / ${totalSlides}`
+        btnPrev.disabled = currentSlide === 0
+        btnNext.disabled = currentSlide === totalSlides - 1
+        document.getElementById('slider').scrollTop = 0
+
+        // Marcar visitado
+        visitedSlides[currentSlide] = true
+        document.getElementById(`check-${currentSlide}`).checked = true
+      }
+
+      function changeSlide(direction) {
+        currentSlide += direction
+        if (currentSlide < 0) currentSlide = 0
+        if (currentSlide >= totalSlides) currentSlide = totalSlides - 1
+        updateUI()
+      }
+
+      function goToSlide(index) {
+        currentSlide = index
+        updateUI()
+      }
+
+      function toggleMenu() {
+        menu.classList.toggle('open')
+        menu.setAttribute('aria-hidden', !menu.classList.contains('open'))
+      }
+
+      // ================= SISTEMA DE PUNTAJES =================
+      function addScore(taskId, points) {
+        if (!completedTasks.has(taskId)) {
+          completedTasks.add(taskId)
+          score += points
+          headerScore.textContent = `Puntos: ${score}`
+          finalScore.textContent = score
+        }
+      }
+
+      function checkAnswer(quizId, isCorrect, taskId) {
+        const quiz = document.getElementById(quizId)
+        const feedback = quiz.querySelector('.feedback')
+        feedback.style.display = 'block'
+        feedback.classList.remove('correct', 'incorrect')
+
+        if (isCorrect) {
+          feedback.textContent = '¡Correcto! Excelente trabajo.'
+          feedback.classList.add('correct')
+          addScore(taskId, 10)
+        } else {
+          feedback.textContent = 'Incorrecto. Revisa la información e inténtalo de nuevo.'
+          feedback.classList.add('incorrect')
+        }
+      }
+
+      // ================= DRAG AND DROP API =================
+      function allowDrop(ev) {
+        ev.preventDefault()
+      }
+      function drag(ev) {
+        ev.dataTransfer.setData('text', ev.target.id)
+      }
+
+      // Drag Drop Específico para Títulos
+      function drop(ev, correctId) {
+        ev.preventDefault()
+        const data = ev.dataTransfer.getData('text')
+        // Evitar soltar dentro de otro item
+        if (ev.target.classList.contains('dropzone') && ev.target.children.length === 1) {
+          ev.target.appendChild(document.getElementById(data))
+          checkTitlesOrder()
+        }
+      }
+
+      function checkTitlesOrder() {
+        const d1 = document.getElementById('drop-1').querySelector('#drag-n1')
+        const d2 = document.getElementById('drop-2').querySelector('#drag-n2')
+        const d3 = document.getElementById('drop-3').querySelector('#drag-n3')
+
+        if (d1 && d2 && d3) {
+          const fb = document.getElementById('feedback-titles')
+          fb.style.display = 'block'
+          fb.textContent = '¡Perfecto! Jerarquía ordenada correctamente.'
+          fb.className = 'feedback correct'
+          addScore('dragTitles', 20)
+        }
+      }
+
+      // Drag Drop Constructor de Citas
+      function dropMulti(ev) {
+        ev.preventDefault()
+        const data = ev.dataTransfer.getData('text')
+        if (ev.target.id === 'drop-cita' || ev.target.parentNode.id === 'drop-cita') {
+          document.getElementById('drop-cita').appendChild(document.getElementById(data))
+        }
+      }
+
+      function checkCitaBuilder() {
+        const box = document.getElementById('drop-cita')
+        const items = box.querySelectorAll('.drag-item')
+        const fb = document.getElementById('feedback-cita')
+        fb.style.display = 'block'
+
+        let result = ''
+        items.forEach((i) => (result += i.innerText.trim()))
+
+        if (result === '(Gómez y López, 2021)') {
+          fb.textContent = '¡Excelente cita armada!'
+          fb.className = 'feedback correct'
+          addScore('dragCita', 15)
+        } else {
+          fb.textContent = 'Orden incorrecto. Recuerda: (Autor(es), Año)'
+          fb.className = 'feedback incorrect'
+        }
+      }
+
+      // Drag Drop Fill in Blanks (Textos en cajas)
+      function dropSingle(ev, correctId) {
+        ev.preventDefault()
+        const data = ev.dataTransfer.getData('text')
+        if (ev.target.classList.contains('drop-inline') && ev.target.children.length === 0) {
+          ev.target.appendChild(document.getElementById(data))
+        }
+      }
+
+      function checkFillBlanks() {
+        const w1 = document.getElementById('drop-word1').querySelector('#word-sangria')
+        const w2 = document.getElementById('drop-word2').querySelector('#word-inter')
+        const fb = document.getElementById('feedback-blanks')
+        fb.style.display = 'block'
+
+        if (w1 && w2) {
+          fb.textContent = '¡Muy bien! Conceptos ubicados correctamente.'
+          fb.className = 'feedback correct'
+          addScore('dragBlanks', 15)
+        } else {
+          fb.textContent = 'Revisa dónde pusiste las palabras.'
+          fb.className = 'feedback incorrect'
+        }
+      }
+
+      // ================= SIMULADOR AUTORES =================
+      function updateSimulator(val) {
+        const res = document.getElementById('simResult')
+        if (val == 1) res.innerHTML = "(Pérez, 2023) <br><span style='font-size:0.9rem;font-weight:normal;'>1 autor: Apellido y año.</span>"
+        else if (val == 2) res.innerHTML = "(Pérez y Gómez, 2023) <br><span style='font-size:0.9rem;font-weight:normal;'>2 autores: Se separan por 'y'.</span>"
+        else res.innerHTML = "(Pérez et al., 2023) <br><span style='font-size:0.9rem;font-weight:normal;'>3 o más autores: Se usa 'et al.' (que significa 'y otros').</span>"
+        addScore('simAutores', 5)
+      }
+
+      // ================= REINICIO DEL OVA =================
+      function resetOVA() {
+        if (confirm('¿Seguro que deseas reiniciar todo el progreso y los puntos?')) {
+          score = 0
+          completedTasks.clear()
+          headerScore.textContent = `Puntos: 0`
+          finalScore.textContent = `0`
+
+          // Recargar página para limpiar DOM de arrastres fácilmente
+          window.location.reload()
+        }
+      }
+
+      // Iniciar al cargar
+      window.onload = initOVA
+    </script>
+  </body>
+</html>
